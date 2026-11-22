@@ -100,6 +100,18 @@ describe('createExtensionGitClient', () => {
       'credential helper',
       'https://git.example.com/owner/credential.helper.git',
     ],
+    // argv-parser 3.0.0 added these unanchored matchers; a URL containing one
+    // would fail the credentialed client pre-spawn unless the category is
+    // enabled for the product-generated extraHeader key.
+    ['include path', 'https://git.example.com/owner/include.path/repo.git'],
+    ['includeif', 'https://git.example.com/owner/includeif.x/repo.git'],
+    [
+      'submodule update',
+      'https://git.example.com/owner/submodule.update/repo.git',
+    ],
+    ['tar command', 'https://git.example.com/owner/tar.command/repo.git'],
+    ['trailer cmd', 'https://git.example.com/owner/trailer.cmd/repo.git'],
+    ['url insteadof', 'https://git.example.com/owner/urlxx.insteadof/repo.git'],
   ])(
     'runs authenticated Git commands when the URL contains %s text',
     async (_label, source) => {
