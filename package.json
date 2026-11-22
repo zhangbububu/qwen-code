@@ -253,7 +253,8 @@
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "ink": "7.0.3",
-    "simple-git": "^3.36.0"
+    "simple-git": "^4.1.0",
+    "sharp": "^0.35.5"
   },
   "optionalDependencies": {
     "@lydell/node-pty": "1.2.0-beta.10",

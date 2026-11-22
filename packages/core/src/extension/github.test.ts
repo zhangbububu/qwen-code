@@ -284,6 +284,12 @@ describe('git extension helpers', () => {
       allowUnsafeProtocolOverride: true,
       allowUnsafeFsMonitor: true,
     },
+    // simple-git v4 throws on guarded env keys unless the client names them.
+    allowEnvironment: [
+      'GIT_CONFIG_NOSYSTEM',
+      'GIT_CONFIG_GLOBAL',
+      'GIT_TERMINAL_PROMPT',
+    ],
   };
   const CREDENTIALED_UNSAFE = {
     allowUnsafeConfigPaths: true,

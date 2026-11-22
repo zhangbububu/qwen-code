@@ -120,6 +120,22 @@ export function createExtensionGitClient(
     ...(signal ? { abort: signal } : {}),
     ...(hasNetworkConfig ? { config: networkConfig } : {}),
     ...(restrictEnvironment || hasNetworkConfig ? { unsafe } : {}),
+    // simple-git v4 throws when a task env names a guarded variable without
+    // an explicit opt-in. The restricted environment below sets exactly these
+    // on purpose (hermetic config, no interactive prompt, optional inline
+    // credential), so name them here.
+    ...(restrictEnvironment
+      ? {
+          allowEnvironment: [
+            'GIT_CONFIG_NOSYSTEM',
+            'GIT_CONFIG_GLOBAL',
+            'GIT_TERMINAL_PROMPT',
+            ...(authentication
+              ? ['GIT_CONFIG_COUNT', 'GIT_CONFIG_KEY_0', 'GIT_CONFIG_VALUE_0']
+              : []),
+          ],
+        }
+      : {}),
   });
   if (!restrictEnvironment) return git;
 
